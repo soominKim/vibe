@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>태재 바이브 코딩 아카데미 – 5회차 핸즈온 가이드</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-gray: #f7f7f8;
+    --border: #e5e5e8;
+    --text: #111111;
+    --text-sub: #666666;
+    --text-dim: #999999;
+    --primary: #4338ca;
+    --primary-light: #eef2ff;
+    --accent-1-bg: #fff7ed;
+    --accent-2-bg: #ecfdf5;
+    --accent-3-bg: #f5f3ff;
+    --code-bg: #f4f4f6;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.75; -webkit-font-smoothing: antialiased;
+  }
+  header { border-bottom: 1px solid var(--border); padding: 0 24px; }
+  header .inner {
+    max-width: 800px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; height: 56px;
+  }
+  header .logo { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+  header .logo span { color: var(--primary); }
+  header .week { font-size: 13px; color: var(--text-dim); }
+  .hero {
+    max-width: 800px; margin: 0 auto;
+    padding: 56px 24px 48px; text-align: center;
+  }
+  .hero .badge {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    color: var(--primary); background: var(--primary-light);
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.35; letter-spacing: -0.8px; margin-bottom: 14px; }
+  .hero p { font-size: 15px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
+  .tabs-wrapper {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  .tabs {
+    max-width: 800px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 0;
+  }
+  .tab-btn {
+    flex: 1; padding: 14px 8px; font-size: 14px; font-weight: 500;
+    color: var(--text-dim); background: none; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer;
+    transition: all 0.2s; font-family: inherit; text-align: center; white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text-sub); }
+  .tab-btn.active { color: var(--text); font-weight: 700; border-bottom-color: var(--text); }
+  .tab-btn .num {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    width: 20px; height: 20px; line-height: 20px; border-radius: 50%;
+    background: var(--bg-gray); color: var(--text-dim);
+    margin-right: 6px; text-align: center; transition: all 0.2s;
+  }
+  .tab-btn.active .num { background: var(--text); color: #fff; }
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+  .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .proj-header { margin-bottom: 40px; }
+  .proj-header h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .proj-header p { font-size: 14px; color: var(--text-sub); }
+  .flow {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 36px; padding: 16px 20px;
+    background: var(--bg-gray); border-radius: var(--radius);
+  }
+  .flow-node { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 6px; background: #fff; border: 1px solid var(--border); }
+  .flow-arrow { color: var(--text-dim); font-size: 13px; }
+  .step { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 8px; }
+  .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  .step-body { font-size: 14px; color: var(--text-sub); line-height: 1.8; }
+  .step-body p { margin-bottom: 10px; }
+  .step-body strong { color: var(--text); font-weight: 600; }
+  .step-body a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(67,56,202,0.3); }
+  .step-body a:hover { text-decoration-color: var(--primary); }
+  .step-body ul { list-style: none; padding: 0; margin: 8px 0 12px; }
+  .step-body ul li { padding-left: 18px; position: relative; margin-bottom: 5px; }
+  .step-body ul li::before { content: '•'; position: absolute; left: 4px; color: var(--text-dim); }
+  .code-block { background: var(--code-bg); border-radius: 8px; padding: 16px 18px; margin: 12px 0; overflow-x: auto; }
+  .code-block code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.8; color: var(--text); white-space: pre; }
+  .code-block .cmt { color: #999; }
+  .code-block .cmd { color: var(--primary); font-weight: 500; }
+  .code-block .str { color: #f97316; }
+  .code-block .flg { color: #7c3aed; }
+  .prompt-box {
+    background: var(--bg-gray); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 20px; margin: 12px 0; font-size: 13.5px; line-height: 1.85; position: relative;
+  }
+  .prompt-box::before {
+    content: 'PROMPT'; font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    color: var(--primary); position: absolute; top: -9px; left: 14px; background: var(--bg); padding: 0 6px;
+  }
+  .tip { background: var(--accent-2-bg); border-radius: 8px; padding: 14px 18px; margin: 14px 0; font-size: 13px; color: #065f46; line-height: 1.7; }
+  .tip.warn { background: var(--accent-1-bg); color: #9a3412; }
+  .tip.info { background: var(--accent-3-bg); color: #5b21b6; }
+  .tip b { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; text-transform: uppercase; }
+  footer {
+    max-width: 800px; margin: 0 auto; padding: 32px 24px 48px;
+    border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-dim);
+  }
+  footer a { color: var(--primary); text-decoration: none; }
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 26px; }
+    .tab-btn { font-size: 13px; padding: 12px 4px; }
+    .tab-btn .num { width: 18px; height: 18px; line-height: 18px; font-size: 10px; margin-right: 4px; }
+    .flow { gap: 4px; padding: 12px 14px; }
+    .flow-node { font-size: 11px; padding: 3px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="logo">Taejae <span>AI</span> Academy</div>
+    <div class="week">Week 5 핸즈온 가이드</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="badge">바이브 코딩 아카데미 · 5회차</div>
+  <h1>프로덕트 완성도 높이기와<br>결전의 데모데이</h1>
+  <p>Stitch로 디자인하고, Replit으로 기능을 확장하고, Vercel로 대화형 서비스를 배포하는 실습 가이드입니다.</p>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="0"><span class="num">1</span>사용성 높이기</button>
+    <button class="tab-btn" data-tab="1"><span class="num">2</span>통제권 가져가기</button>
+    <button class="tab-btn" data-tab="2"><span class="num">3</span>대화형 UX</button>
+  </div>
+</div>
+
+<!-- TAB 1 -->
+<div class="tab-content active" id="tab-0">
+  <div class="proj-header">
+    <h2>사용성 높이기</h2>
+    <p>Google Stitch로 앱 프로토타입을 디자인하고, Jules를 통해 실제 코드로 변환한 뒤 로컬에서 실행합니다.</p>
+  </div>
+  <div class="flow">
+    <span class="flow-node">Stitch 프로토타입</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Figma 수정</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Jules Export</span><span class="flow-arrow">→</span>
+    <span class="flow-node">GitHub 연동</span><span class="flow-arrow">→</span>
+    <span class="flow-node">로컬 실행</span>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 1</div>
+    <h3>Google Stitch 접속 및 프로젝트 생성</h3>
+    <div class="step-body">
+      <p><a href="https://stitch.withgoogle.com/" target="_blank">stitch.withgoogle.com</a>에 접속합니다.</p>
+      <ul>
+        <li><strong>새 → 앱</strong> 또는 <strong>웹</strong> 중 원하는 타입을 선택</li>
+        <li>우측 모델 선택에서 <strong>Fast</strong> 모드 선택 — Figma Export 가능</li>
+        <li><strong>3 Flash</strong> 모드는 더 고품질 HTML 디자인 생성</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 2</div>
+    <h3>디자인 프롬프트 입력하기</h3>
+    <div class="step-body">
+      <p>프롬프트 입력창에 원하는 앱의 디자인을 상세히 기술합니다.</p>
+      <div class="prompt-box">You are a senior designer at Apple. Build a pristine, single-page web application for voice recording and transcription that captures the friendly, soft aesthetic of https://www.apple.com/family-sharing/, prioritizing large rounded corners and generous whitespace. Crucially, include a sleek, pill-shaped toggle for language selection (strictly Korean and English, defaulting to Korean) placed prominently near the main action. The core user flow must be: 1) A central, inviting "Record" button in a clean hero section; 2) Upon clicking, transition seamlessly to an active recording state featuring a smooth, organic waveform visualization; 3) When recording stops, immediately generate and display the transcription in the selected language within an elegant, card-style layout with high-contrast typography.</div>
+      <div class="tip"><b>Tip</b>참고할 웹사이트 URL을 넣으면 해당 디자인 톤을 반영합니다. 구체적인 UI 요소(토글, 버튼, 카드)를 명시할수록 결과물이 정확합니다.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 3</div>
+    <h3>디자인 수정 및 Figma로 복사</h3>
+    <div class="step-body">
+      <p>디자인이 생성되면 상단 메뉴에서 수정합니다.</p>
+      <ul>
+        <li><strong>Edit → 채팅에 추가</strong>: 특정 화면 수정 요청</li>
+        <li><strong>Edit → 주석 작성</strong>: 화면 위에 어노테이션 추가</li>
+        <li><strong>Edit → 테마 수정</strong>: 전체 컬러/스타일 변경</li>
+      </ul>
+      <p>수정 완료 후 <strong>More → Figma로 복사</strong>를 클릭합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 4</div>
+    <h3>GitHub Repository 만들기</h3>
+    <div class="step-body">
+      <p><a href="https://github.com" target="_blank">github.com</a>에 가입 후 새 Repository를 생성합니다.</p>
+      <ul>
+        <li><strong>+ New</strong> → Repository name 입력 (예: <code>my-voice-app</code>)</li>
+        <li>Visibility: <strong>Public</strong> → <strong>Create repository</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 5</div>
+    <h3>Jules 연동으로 코드 Export</h3>
+    <div class="step-body">
+      <p><a href="https://jules.google" target="_blank">jules.google</a>에 접속하여 GitHub 계정을 연동합니다.</p>
+      <ul>
+        <li><strong>Try Jules</strong> → <strong>Connect to GitHub</strong></li>
+        <li>Stitch에서 <strong>More → 내보내기</strong> → Format: <strong>Jules</strong> 선택</li>
+        <li>Repository 선택 → <strong>작업 만들기</strong></li>
+      </ul>
+      <div class="prompt-box">한국어 전용 웹 기반 녹음 및 음성 받아쓰기 서비스를 구현한다. 음성 인식은 브라우저 내장 Web Speech API를 사용한다. 사용자가 녹음을 시작하고 종료할 수 있어야 하며, 녹음 완료 후 전체 음성 스크립트를 화면에 표시한다. 변환된 스크립트는 카드(Card) 형식의 데이터로 저장·표시한다. 로그인 및 사용자 인증 기능은 구현하지 않는다.</div>
+      <div class="tip warn"><b>주의</b>Jules 무료 플랜은 일일 세션 제한이 있습니다. 중요한 작업은 미리 계획하세요.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 6</div>
+    <h3>로컬에서 프로젝트 실행하기</h3>
+    <div class="step-body">
+      <div class="code-block"><code><span class="cmt"># GitHub에서 프로젝트 다운로드 (현재 터미널 위치에 폴더가 생깁니다)</span>
+<span class="cmt"># 바탕화면에 받으려면 먼저: cd Desktop</span>
+<span class="cmd">git clone</span> https://github.com/[내아이디]/[레포이름].git
+
+<span class="cmt"># 프로젝트 폴더로 이동</span>
+<span class="cmd">cd</span> [레포이름]
+
+<span class="cmt"># Jules가 만든 브랜치로 전환</span>
+<span class="cmd">git checkout</span> <span class="str">feature-voice-rec-service-xxxxx</span>
+
+<span class="cmt"># 패키지 설치 후 실행</span>
+<span class="cmd">npm install</span>
+<span class="cmd">npm run dev</span></code></div>
+      <p>브라우저에서 <strong>http://localhost:3000</strong>으로 접속하여 확인합니다.</p>
+      <div class="tip warn"><b>사전 준비</b><code>npm</code> 명령어를 사용하려면 <strong>Node.js</strong>가 먼저 설치되어 있어야 합니다. <a href="https://nodejs.org" target="_blank">nodejs.org</a>에서 LTS 버전을 다운로드하여 설치하세요. 설치 후 터미널에서 <code>node -v</code>를 입력해 정상 설치를 확인할 수 있습니다.</div>
+    </div>
+  <div class="step">
+    <div class="step-label">STEP 7</div>
+    <h3>Vercel로 배포하기</h3>
+    <div class="step-body">
+      <p>로컬에서 잘 돌아가는 걸 확인했으면, 이제 누구나 접속할 수 있도록 웹에 배포합니다.</p>
+      <p><strong>먼저, main 브랜치를 만들어줍니다 (1번만 하면 됩니다).</strong></p>
+      <div class="code-block"><code><span class="cmt"># 현재 코드를 main 브랜치로 만들기</span>
+<span class="cmd">git checkout</span> <span class="flg">-b</span> main
+
+<span class="cmt"># GitHub에 올리기</span>
+<span class="cmd">git push</span> <span class="flg">-u</span> origin main</code></div>
+      <div class="tip"><b>왜 이걸 해야 하나요?</b>Jules는 코드를 <code>feature-xxx</code>라는 이름의 브랜치에 만들어줍니다. Vercel은 기본적으로 <code>main</code> 브랜치를 배포하기 때문에, 위 명령어 2줄로 main을 만들어주는 겁니다.</div>
+      <div class="tip"><b>API 키가 필요한가요?</b>이 프로젝트의 음성 받아쓰기는 브라우저 내장 <strong>Web Speech API</strong>를 사용합니다. 별도의 API 키나 백엔드 설정 없이 무료로 작동하며, Chrome/Edge는 Google 음성 인식 엔진, Safari는 Apple 음성 인식 엔진을 사용합니다. 브라우저에 따라 인식률이나 동작(침묵 시 끊김 등)에 차이가 있을 수 있습니다. 더 높은 인식률이 필요하면 OpenAI Whisper 등 외부 AI 모델 연동도 가능합니다.</div>
+      <p><strong>그 다음, Vercel에서 배포합니다.</strong></p>
+      <ul>
+        <li><a href="https://vercel.com" target="_blank">vercel.com</a> 접속 → GitHub 계정으로 로그인</li>
+        <li><strong>Add New Project</strong> → 내 repo 선택 → <strong>Import</strong></li>
+        <li><strong>Deploy</strong> 클릭 → 빌드 완료 후 URL 자동 생성</li>
+        <li>생성된 URL로 접속하면 내 서비스가 웹에 공개됩니다</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="tab-content" id="tab-1">
+  <div class="proj-header">
+    <h2>통제권 가져가기</h2>
+    <p>기획 단계에서 놓치기 쉬운 관리자 페이지를 Replit으로 구현하여 운영 가능한 서비스 구조를 만듭니다.</p>
+  </div>
+  <div class="flow">
+    <span class="flow-node">누락 기능 파악</span><span class="flow-arrow">→</span>
+    <span class="flow-node">PRD에 반영</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Replit에 요청</span><span class="flow-arrow">→</span>
+    <span class="flow-node">관리자 페이지 구현</span>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 1</div>
+    <h3>기획 단계에서 놓치기 쉬운 것 인식하기</h3>
+    <div class="step-body">
+      <p>바이브 코딩으로 빠르게 만들면 <strong>사용자 화면</strong>에만 집중하기 쉽습니다. 실제 운영에는 다음이 필수입니다.</p>
+      <ul>
+        <li><strong>관리자 페이지</strong> — 콘텐츠 등록/수정/삭제</li>
+        <li><strong>대시보드</strong> — 사용자 통계, 트래픽 모니터링</li>
+        <li><strong>권한 관리</strong> — 일반 사용자 vs 관리자 분리</li>
+      </ul>
+      <div class="tip"><b>키즈GPT 사례</b>YouTube Studio 같은 콘텐츠 관리 화면을 구상했지만, 실제로는 API doc에서 직접 JSON을 입력하는 방식으로 운영해야 했습니다. 기획 단계에서 관리자 기능을 빠뜨리면 추가 개발 비용이 발생합니다.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 2</div>
+    <h3>PRD에 관리자 기능 추가하기</h3>
+    <div class="step-body">
+      <p>기존 PRD에 관리자 관련 요구사항을 명시적으로 추가합니다.</p>
+      <div class="prompt-box">현재 서비스에 관리자 페이지를 추가해줘.<br><br>관리자 기능 요구사항:<br>- 관리자 로그인 (간단한 비밀번호 방식)<br>- 콘텐츠 CRUD (생성/조회/수정/삭제) 대시보드<br>- 콘텐츠 목록을 테이블로 표시 (제목, 상태, 날짜)<br>- 새 콘텐츠 추가 시 폼 UI 제공<br>- 사용자 화면과 관리자 화면은 별도 라우트로 분리 (/admin)</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 3</div>
+    <h3>Replit에서 관리자 모드 구현 요청</h3>
+    <div class="step-body">
+      <p><a href="https://replit.com" target="_blank">Replit</a>에서 기존 프로젝트를 열거나 새 프로젝트를 생성합니다.</p>
+      <ul>
+        <li>채팅창에 PRD 내용을 붙여넣고 구현을 요청</li>
+        <li>Replit Agent가 관리자 라우트, 인증 로직, CRUD UI를 자동 생성</li>
+        <li>부족한 부분은 추가 프롬프트로 보완</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 4</div>
+    <h3>관리자 페이지 테스트 및 검증</h3>
+    <div class="step-body">
+      <p>구현된 관리자 페이지를 다음 기준으로 검증합니다.</p>
+      <ul>
+        <li>관리자 로그인이 정상 작동하는가?</li>
+        <li>콘텐츠 추가/수정/삭제가 사용자 화면에 즉시 반영되는가?</li>
+        <li>일반 사용자가 /admin에 접근할 수 없는가?</li>
+        <li>데이터 오류 시 적절한 에러 메시지가 표시되는가?</li>
+      </ul>
+      <div class="tip info"><b>핵심</b>서비스를 "운영 가능한 구조"로 만들려면 사용자 화면과 관리자 화면을 동시에 설계하세요. 이것이 바이브 코딩에서 주도권을 가져가는 핵심입니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3 -->
+<div class="tab-content" id="tab-2">
+  <div class="proj-header">
+    <h2>대화형 UX 적용하기</h2>
+    <p>웹툰 데이터에 Gemini API 챗봇을 붙이고, GitHub → Vercel로 배포하여 대화형 서비스를 완성합니다.</p>
+  </div>
+  <div class="flow">
+    <span class="flow-node">웹툰 데이터</span><span class="flow-arrow">→</span>
+    <span class="flow-node">PRD 작성</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Antigravity 개발</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Gemini API</span><span class="flow-arrow">→</span>
+    <span class="flow-node">Vercel 배포</span>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 1</div>
+    <h3>대화형 UX의 가치 이해하기</h3>
+    <div class="step-body">
+      <p>기존 서비스가 one-time 인터랙션이었다면, AI 에이전트를 붙이면 <strong>ongoing 관계</strong>로 진화합니다.</p>
+      <ul>
+        <li><strong>아마존 루퍼스</strong> — 브래키팅 문제를 AI 대화로 해결, 연간 반품비용 $400억 절감</li>
+        <li><strong>네이버 웹툰 설효림 챗봇</strong> — 열람 회차수 97%↑, 매출 44%↑</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 2</div>
+    <h3>웹툰 데이터 다운로드</h3>
+    <div class="step-body">
+      <p>강의 자료에서 제공하는 네이버 웹툰 JSON 데이터를 다운로드합니다.</p>
+      <div class="code-block"><code>{
+  <span class="str">"title"</span>: "개같이 탈출",
+  <span class="str">"author"</span>: "갬자",
+  <span class="str">"thumbnail"</span>: "https://image-comic.pstatic.net/...",
+  <span class="str">"story"</span>: "살아남으라고? 나는 자그만 말티즈란 말이야!...",
+  <span class="str">"genre"</span>: ["드라마", "생존", "힐링", ...],
+  <span class="str">"ageRating"</span>: "Unknown"
+}</code></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 3</div>
+    <h3>ChatGPT로 PRD 작성하기</h3>
+    <div class="step-body">
+      <div class="prompt-box">현재 내가 갖고 있는 웹툰 디비야.<br>이거 바탕으로 리스트 형식으로 웹툰 디스플레이하고,<br>내가 관심있는 웹툰을 찾는 챗봇도 붙일거야.<br>웹툰 검색해서 매칭하고 대사 생성하는건 gemini-2.5-flash-lite 쓸거야.<br>기능 중심으로 간결하게 기획안 써줘. 코드는 쓰지마</div>
+      <p>생성된 PRD를 <code>prd.md</code> 파일로 저장합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 4</div>
+    <h3>Gemini API 키 발급받기</h3>
+    <div class="step-body">
+      <p><a href="https://aistudio.google.com/api-keys" target="_blank">aistudio.google.com/api-keys</a>에 접속합니다.</p>
+      <ul>
+        <li><strong>API 키 만들기</strong> 클릭 → 프로젝트 선택 → 키 복사</li>
+      </ul>
+      <div class="tip warn"><b>주의</b>API 키를 코드에 직접 넣지 마세요. 반드시 <code>.env.local</code> 파일에 저장합니다.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 5</div>
+    <h3>Antigravity에서 개발 시작하기</h3>
+    <div class="step-body">
+      <p>프로젝트 셋업 후, AI 코딩 에이전트에게 다음과 같이 요청합니다.</p>
+      <div class="prompt-box">prd.md 기반해서 데이터베이스에 저장된 웹툰을 리스트로 보여주고 (썸네일 및 주요 정보 포함), 챗봇을 통해서 내 취향의 웹툰을 찾을 수 있는 챗봇 기능을 구현한다.<br><br>데이터는 webtoons.json 활용하고 DB는 변경하지 않는다.<br>gemini-2.5-flash-lite 모델로 사용한다.<br>다음 Gemini Key는 .env.local에 저장한다.<br>GEMINI_API_KEY=***</div>
+      <ul>
+        <li>Next.js 프로젝트 구조, 웹툰 리스트 UI, 챗봇 컴포넌트가 자동 생성</li>
+        <li>오류 발생 시 에러 로그를 복사해서 다시 요청</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 6</div>
+    <h3>GitHub에 Push하기</h3>
+    <div class="step-body">
+      <div class="code-block"><code><span class="cmt"># Git 초기화 & 커밋</span>
+<span class="cmd">cd</span> /Users/[내이름]/Desktop/[프로젝트폴더]
+<span class="cmd">git init</span>
+<span class="cmd">git add</span> .
+<span class="cmd">git commit</span> <span class="flg">-m</span> <span class="str">"first commit"</span>
+
+<span class="cmt"># GitHub repo 연결 & Push</span>
+<span class="cmd">git remote add origin</span> https://github.com/[내아이디]/[레포이름].git
+<span class="cmd">git branch</span> <span class="flg">-M</span> main
+<span class="cmd">git push</span> <span class="flg">-u</span> origin main</code></div>
+      <div class="tip info"><b>PAT 토큰 만들기</b>GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → repo 전체 체크 → Generate → <code>ghp_...</code> 토큰을 Push 시 Password로 입력합니다.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label">STEP 7</div>
+    <h3>Vercel로 배포하기</h3>
+    <div class="step-body">
+      <p><a href="https://vercel.com" target="_blank">vercel.com</a>에서 GitHub 계정으로 로그인합니다.</p>
+      <ul>
+        <li><strong>Add New Project</strong> → GitHub repo 선택 → <strong>Import</strong></li>
+        <li><strong>Environment Variables</strong>에 <code>GEMINI_API_KEY</code> 추가</li>
+        <li><strong>Deploy</strong> 클릭 → 빌드 완료 후 URL 자동 생성</li>
+      </ul>
+      <div class="tip"><b>배포 완료</b>Vercel은 GitHub와 자동 연동되어, 이후 Push할 때마다 자동 배포됩니다.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Taejae AI Academy · Week 5 핸즈온 가이드<br>
+  Soomin Kim · smsoominkim@gmail.com<br>
+  <span style="margin-top:4px;display:inline-block;">&copy; 2025 Soomin Kim. All rights reserved.</span>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var idx = parseInt(this.getAttribute('data-tab'));
+    document.querySelectorAll('.tab-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.tab-content').forEach(function(c, i) { c.classList.toggle('active', i === idx); });
+    window.scrollTo({ top: document.querySelector('.tabs-wrapper').offsetTop, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
