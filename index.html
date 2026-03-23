@@ -50,14 +50,17 @@ header .week{font-size:13px;color:var(--text-dim);}
 .tab-nav label .num{display:inline-block;font-size:11px;font-weight:700;width:20px;height:20px;line-height:20px;border-radius:50%;background:var(--bg-gray);color:var(--text-dim);margin-right:6px;text-align:center;transition:all 0.2s;}
 #t1:checked ~ .tab-nav label[for="t1"],
 #t2:checked ~ .tab-nav label[for="t2"],
-#t3:checked ~ .tab-nav label[for="t3"]{color:var(--text);font-weight:700;border-bottom-color:var(--text);}
+#t3:checked ~ .tab-nav label[for="t3"],
+#t4:checked ~ .tab-nav label[for="t4"]{color:var(--text);font-weight:700;border-bottom-color:var(--text);}
 #t1:checked ~ .tab-nav label[for="t1"] .num,
 #t2:checked ~ .tab-nav label[for="t2"] .num,
-#t3:checked ~ .tab-nav label[for="t3"] .num{background:var(--text);color:#fff;}
+#t3:checked ~ .tab-nav label[for="t3"] .num,
+#t4:checked ~ .tab-nav label[for="t4"] .num{background:var(--text);color:#fff;}
 .tab-panel{display:none;padding:40px 24px 80px;}
 #t1:checked ~ .p1,
 #t2:checked ~ .p2,
-#t3:checked ~ .p3{display:block;}
+#t3:checked ~ .p3,
+#t4:checked ~ .p4{display:block;}
 
 /* CONTENT STYLES */
 .proj-header{margin-bottom:40px;}
@@ -120,15 +123,115 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
   <input type="radio" name="tabs" id="t1" checked>
   <input type="radio" name="tabs" id="t2">
   <input type="radio" name="tabs" id="t3">
+  <input type="radio" name="tabs" id="t4">
 
   <div class="tab-nav">
-    <label for="t1"><span class="num">1</span>사용성 높이기</label>
-    <label for="t2"><span class="num">2</span>통제권 가져가기</label>
-    <label for="t3"><span class="num">3</span>대화형 UX</label>
+    <label for="t1"><span class="num">1</span>랜딩 페이지 만들기</label>
+    <label for="t2"><span class="num">2</span>사용성 높이기</label>
+    <label for="t3"><span class="num">3</span>통제권 가져가기</label>
+    <label for="t4"><span class="num">4</span>대화형 UX</label>
   </div>
 
-  <!-- ═══════ TAB 1: 사용성 높이기 ═══════ -->
+  <!-- ═══════ TAB 1: 랜딩 페이지 만들기 ═══════ -->
   <div class="tab-panel p1">
+    <div class="proj-header">
+      <h2>랜딩 페이지 만들기</h2>
+      <p>GitHub에 프로젝트를 올리고, Vercel에 연동하여 나만의 랜딩 페이지를 세상에 배포합니다.</p>
+    </div>
+    <div class="flow">
+      <span class="flow-node">GitHub 가입</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Repository 생성</span><span class="flow-arrow">→</span>
+      <span class="flow-node">index.html 작성</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Vercel 연동</span><span class="flow-arrow">→</span>
+      <span class="flow-node">배포 완료</span>
+    </div>
+
+    <div class="step">
+      <div class="step-label">STEP 1</div>
+      <h3>GitHub 가입 및 Repository 생성</h3>
+      <div class="step-body">
+        <p><a href="https://github.com" target="_blank">github.com</a>에 접속하여 계정을 만듭니다. (이미 있다면 로그인)</p>
+        <ul>
+          <li>우측 상단 <strong>+</strong> → <strong>New repository</strong> 클릭</li>
+          <li><strong>Repository name</strong>에 프로젝트 이름 입력 (예: <code>my-landing</code>)</li>
+          <li>Visibility: <strong>Public</strong> 선택</li>
+          <li><strong>Add a README file</strong> 체크 → <strong>Create repository</strong></li>
+        </ul>
+        <div class="tip"><b>Tip</b>Repository 이름은 영문 소문자와 하이픈(-)으로 짓는 것이 관례입니다. 이 이름이 나중에 URL의 일부가 됩니다.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">STEP 2</div>
+      <h3>index.html 파일 만들기</h3>
+      <div class="step-body">
+        <p>Repository 페이지에서 <strong>Add file → Create new file</strong>을 클릭합니다.</p>
+        <ul>
+          <li>파일 이름: <code>index.html</code></li>
+          <li>아래 기본 템플릿을 붙여넣고, 내용을 자유롭게 수정합니다.</li>
+        </ul>
+        <div class="code-block"><code><span class="cmd">&lt;!DOCTYPE html&gt;</span>
+<span class="cmd">&lt;html lang=</span><span class="str">"ko"</span><span class="cmd">&gt;</span>
+<span class="cmd">&lt;head&gt;</span>
+  <span class="cmd">&lt;meta charset=</span><span class="str">"UTF-8"</span><span class="cmd">&gt;</span>
+  <span class="cmd">&lt;meta name=</span><span class="str">"viewport"</span> <span class="cmd">content=</span><span class="str">"width=device-width, initial-scale=1.0"</span><span class="cmd">&gt;</span>
+  <span class="cmd">&lt;title&gt;</span>내 랜딩 페이지<span class="cmd">&lt;/title&gt;</span>
+<span class="cmd">&lt;/head&gt;</span>
+<span class="cmd">&lt;body&gt;</span>
+  <span class="cmd">&lt;h1&gt;</span>안녕하세요! 저의 첫 번째 웹페이지입니다.<span class="cmd">&lt;/h1&gt;</span>
+  <span class="cmd">&lt;p&gt;</span>이 페이지는 곧 멋진 서비스가 될 예정입니다.<span class="cmd">&lt;/p&gt;</span>
+<span class="cmd">&lt;/body&gt;</span>
+<span class="cmd">&lt;/html&gt;</span></code></div>
+        <p>하단의 <strong>Commit changes</strong> 버튼을 눌러 저장합니다.</p>
+        <div class="tip info"><b>ChatGPT/Claude 활용</b>AI에게 "OO 서비스 랜딩 페이지 HTML을 만들어줘"라고 요청하면 더 완성도 높은 코드를 받을 수 있습니다. 생성된 코드를 그대로 붙여넣으면 됩니다.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">STEP 3</div>
+      <h3>Vercel 가입 및 GitHub 연동</h3>
+      <div class="step-body">
+        <p><a href="https://vercel.com" target="_blank">vercel.com</a>에 접속합니다.</p>
+        <ul>
+          <li><strong>Sign Up</strong> → <strong>Continue with GitHub</strong> 클릭</li>
+          <li>GitHub 계정 인증을 완료하면 Vercel 대시보드로 이동합니다.</li>
+        </ul>
+        <div class="tip"><b>Vercel이란?</b>GitHub에 올린 코드를 자동으로 웹사이트로 만들어주는 무료 배포 서비스입니다. 코드를 수정하고 Push하면 자동으로 반영됩니다.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">STEP 4</div>
+      <h3>프로젝트 Import 및 배포</h3>
+      <div class="step-body">
+        <p>Vercel 대시보드에서 배포를 시작합니다.</p>
+        <ul>
+          <li><strong>Add New → Project</strong> 클릭</li>
+          <li><strong>Import Git Repository</strong>에서 방금 만든 repo 선택 → <strong>Import</strong></li>
+          <li>설정은 기본값 그대로 두고 <strong>Deploy</strong> 클릭</li>
+          <li>1~2분 후 빌드가 완료되면 <code>https://my-landing-xxx.vercel.app</code> 형태의 URL이 생성됩니다.</li>
+        </ul>
+        <div class="tip"><b>축하합니다!</b>이 URL을 브라우저에서 열면 내가 만든 랜딩 페이지가 전 세계 누구나 볼 수 있는 상태가 됩니다.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">STEP 5</div>
+      <h3>코드 수정하고 자동 배포 확인하기</h3>
+      <div class="step-body">
+        <p>GitHub에서 <code>index.html</code>을 수정하고 Commit하면 Vercel이 자동으로 재배포합니다.</p>
+        <ul>
+          <li>GitHub → <code>index.html</code> 파일 클릭 → 연필 아이콘(✏️) 클릭</li>
+          <li>내용을 수정하고 <strong>Commit changes</strong></li>
+          <li>1~2분 후 같은 URL에 접속하면 변경 사항이 반영되어 있습니다.</li>
+        </ul>
+        <div class="tip info"><b>핵심 개념</b>이것이 <strong>CI/CD (지속적 배포)</strong>입니다. GitHub에 코드를 Push하면 Vercel이 자동으로 감지하여 빌드 → 배포까지 처리합니다. 수동으로 서버에 파일을 올릴 필요가 없습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ TAB 2: 사용성 높이기 ═══════ -->
+  <div class="tab-panel p2">
     <div class="proj-header">
       <h2>사용성 높이기</h2>
       <p>Google Stitch로 앱 프로토타입을 디자인하고, Jules를 통해 실제 코드로 변환한 뒤 로컬에서 실행합니다.</p>
@@ -251,8 +354,8 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
     </div>
   </div>
 
-  <!-- ═══════ TAB 2: 통제권 가져가기 ═══════ -->
-  <div class="tab-panel p2">
+  <!-- ═══════ TAB 3: 통제권 가져가기 ═══════ -->
+  <div class="tab-panel p3">
     <div class="proj-header">
       <h2>통제권 가져가기</h2>
       <p>기획 단계에서 놓치기 쉬운 관리자 페이지를 Replit으로 구현하여 운영 가능한 서비스 구조를 만듭니다.</p>
@@ -316,8 +419,8 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
     </div>
   </div>
 
-  <!-- ═══════ TAB 3: 대화형 UX ═══════ -->
-  <div class="tab-panel p3">
+  <!-- ═══════ TAB 4: 대화형 UX ═══════ -->
+  <div class="tab-panel p4">
     <div class="proj-header">
       <h2>대화형 UX 적용하기</h2>
       <p>웹툰 데이터에 Gemini API 챗봇을 붙이고, GitHub → Vercel로 배포하여 대화형 서비스를 완성합니다.</p>
@@ -429,7 +532,7 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
 </div><!-- end tab-system -->
 
 <footer>
-  Taejae AI Academy · Week 5 핸즈온 가이드<br>
+  Trevari Makers · AI Workflow Creation Part #1<br>
   Soomin Kim &#183; &#115;&#109;&#115;&#111;&#111;&#109;&#105;&#110;&#107;&#105;&#109;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;<br>
   <span style="margin-top:4px;display:inline-block;">&copy; 2025 Soomin Kim. All rights reserved.</span>
 </footer>
