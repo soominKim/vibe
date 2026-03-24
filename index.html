@@ -110,7 +110,25 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
   .flow{gap:4px;padding:12px 14px;}
   .flow-node{font-size:11px;padding:3px 8px;}
 }
+/* COMMENTS */
+.comments-section{margin-top:36px;padding-top:36px;border-top:1px solid var(--border);}
+.comments-section h3{font-size:17px;font-weight:700;margin-bottom:16px;letter-spacing:-0.3px;}
+.comment-form{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.comment-form input,.comment-form textarea{font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.2s;}
+.comment-form input:focus,.comment-form textarea:focus{border-color:var(--primary);}
+.comment-form textarea{resize:vertical;min-height:72px;line-height:1.6;}
+.comment-form button{align-self:flex-end;font-family:inherit;font-size:13px;font-weight:600;padding:8px 20px;border:none;border-radius:8px;background:var(--text);color:#fff;cursor:pointer;transition:opacity 0.2s;}
+.comment-form button:hover{opacity:0.85;}
+.comment-form button:disabled{opacity:0.4;cursor:not-allowed;}
+.comment-list{display:flex;flex-direction:column;gap:12px;}
+.comment-item{padding:14px 16px;background:var(--bg-gray);border-radius:var(--radius);font-size:14px;line-height:1.7;}
+.comment-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.comment-nick{font-weight:700;color:var(--text);font-size:13px;}
+.comment-time{font-size:12px;color:var(--text-dim);}
+.comment-text{color:var(--text-sub);}
+.comment-empty{text-align:center;padding:24px;color:var(--text-dim);font-size:13px;}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -249,9 +267,109 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
       </div>
     </div>
 
+    <div class="step">
+      <div class="step-label" style="background:var(--primary-light);color:var(--primary);padding:2px 10px;border-radius:4px;">BONUS</div>
+      <h3>Supabase로 데이터베이스 붙이기</h3>
+      <div class="step-body">
+        <p>정적인 랜딩 페이지에 <strong>데이터베이스</strong>를 추가하면 댓글, 방명록, 피드백 등 사용자 입력을 저장할 수 있습니다. <a href="https://supabase.com" target="_blank">Supabase</a>는 무료로 시작할 수 있는 가장 간단한 방법입니다.</p>
+
+        <p><strong>1) Supabase 프로젝트 생성</strong></p>
+        <ul>
+          <li><a href="https://supabase.com" target="_blank">supabase.com</a> → <strong>Start your project</strong> (GitHub 로그인)</li>
+          <li><strong>New Project</strong> → 이름, 비밀번호, Region(Northeast Asia) 설정</li>
+        </ul>
+
+        <p><strong>2) 테이블 생성 (SQL Editor)</strong></p>
+        <p>좌측 메뉴 <strong>SQL Editor</strong>에서 아래 쿼리를 실행합니다.</p>
+        <div class="code-block"><code><span class="cmt">-- comments 테이블 생성</span>
+<span class="cmd">CREATE TABLE</span> comments (
+  id <span class="flg">BIGSERIAL PRIMARY KEY</span>,
+  nickname <span class="flg">TEXT NOT NULL</span>,
+  content <span class="flg">TEXT NOT NULL</span>,
+  created_at <span class="flg">TIMESTAMPTZ DEFAULT NOW()</span>
+);
+
+<span class="cmt">-- 누구나 읽고 쓸 수 있도록 RLS 정책 설정</span>
+<span class="cmd">ALTER TABLE</span> comments <span class="cmd">ENABLE ROW LEVEL SECURITY</span>;
+
+<span class="cmd">CREATE POLICY</span> <span class="str">"Anyone can read comments"</span>
+  ON comments FOR <span class="flg">SELECT</span> USING (<span class="flg">true</span>);
+
+<span class="cmd">CREATE POLICY</span> <span class="str">"Anyone can insert comments"</span>
+  ON comments FOR <span class="flg">INSERT</span> WITH CHECK (<span class="flg">true</span>);</code></div>
+
+        <p><strong>3) API 키 확인</strong></p>
+        <ul>
+          <li><strong>Project URL</strong> — Settings → <strong>Data API</strong> → <strong>API URL</strong>에서 복사 (예: <code>https://xxx.supabase.co</code>)</li>
+          <li><strong>anon public 키</strong> — Settings → <strong>API Keys</strong> → <strong>Legacy anon, service_role API keys</strong> 탭 → <strong>anon public</strong> 복사</li>
+        </ul>
+
+        <p><strong>4) HTML에 연결 — AI에게 요청하기</strong></p>
+        <p>아래 정보를 준비한 뒤, ChatGPT나 Claude에게 프롬프트를 보내면 댓글 기능이 포함된 코드를 받을 수 있습니다.</p>
+
+        <p style="margin-top:12px;"><strong>AI에게 줘야 하는 정보 3가지:</strong></p>
+        <ul>
+          <li><strong>Project URL</strong> — Settings > Data API > API URL에서 복사 (예: <code>https://xxx.supabase.co</code>)</li>
+          <li><strong>anon public 키</strong> — Settings > API Keys > Legacy anon, service_role API keys 탭에서 복사</li>
+          <li><strong>테이블 구조</strong> — 위에서 만든 SQL (컬럼: nickname, content, created_at)</li>
+        </ul>
+
+        <div class="prompt-box">내 랜딩 페이지에 Supabase 댓글 기능을 추가해줘.
+
+- Supabase Project URL: https://xxx.supabase.co
+- anon key: (위에서 복사한 키 붙여넣기)
+- 테이블명: comments
+- 컬럼: id(자동), nickname(텍스트), content(텍스트), created_at(자동)
+- 로그인 없이 닉네임과 댓글만 입력하면 저장되게 해줘
+- 댓글 목록은 최신순으로 보여줘
+- 순수 HTML/JS로 만들어줘 (프레임워크 없이)</div>
+        <div class="tip info"><b>ChatGPT/Claude 활용</b>위 프롬프트에서 URL과 키만 본인 것으로 바꿔서 보내면 됩니다. 받은 코드를 index.html에 붙여넣고 GitHub에 Commit하면 Vercel이 자동 배포합니다.</div>
+
+        <p style="margin-top:16px;"><strong>참고: 코드 구조 이해하기</strong></p>
+        <p>AI가 생성해주는 코드는 대략 아래와 같은 구조입니다.</p>
+        <div class="code-block"><code><span class="cmt">&lt;!-- CDN으로 Supabase 불러오기 --&gt;</span>
+<span class="cmd">&lt;script src=</span><span class="str">"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"</span><span class="cmd">&gt;&lt;/script&gt;</span>
+
+<span class="cmd">&lt;script&gt;</span>
+  <span class="cmt">// Supabase 초기화</span>
+  const supabase = supabase.createClient(
+    <span class="str">'https://&lt;project-ref&gt;.supabase.co'</span>,  <span class="cmt">// Project URL</span>
+    <span class="str">'your-anon-key'</span>                        <span class="cmt">// anon public 키</span>
+  );
+
+  <span class="cmt">// 댓글 조회</span>
+  const { data } = await supabase
+    .from(<span class="str">'comments'</span>)
+    .select(<span class="str">'*'</span>)
+    .order(<span class="str">'created_at'</span>, { ascending: false });
+
+  <span class="cmt">// 댓글 작성</span>
+  await supabase
+    .from(<span class="str">'comments'</span>)
+    .insert({ nickname: <span class="str">'홍길동'</span>, content: <span class="str">'안녕하세요!'</span> });
+<span class="cmd">&lt;/script&gt;</span></code></div>
+
+        <div class="tip"><b>Tip</b>anon 키는 공개키입니다. RLS(Row Level Security) 정책이 실제 보안을 담당하므로 코드에 넣어도 안전합니다.</div>
+        <div class="tip info"><b>아래에서 실제로 동작합니다</b>이 페이지 하단의 댓글 기능이 바로 위 방식으로 Supabase에 연결되어 있습니다. 직접 댓글을 남겨보세요!</div>
+      </div>
+    </div>
+
     <div style="margin-top:36px;display:flex;flex-direction:column;gap:20px;">
       <img src="assets/image (1).png" alt="AI 기능을 탑재한 소프트웨어 서비스의 구성" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
       <img src="assets/image (2).png" alt="AI 활용 서비스 개발 워크플로우" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+    </div>
+
+    <!-- 댓글 섹션 -->
+    <div class="comments-section">
+      <h3>댓글 남기기</h3>
+      <form class="comment-form" id="commentForm">
+        <input type="text" id="commentNick" placeholder="닉네임" maxlength="20" required>
+        <textarea id="commentContent" placeholder="댓글을 남겨보세요" maxlength="500" required></textarea>
+        <button type="submit" id="commentBtn">등록</button>
+      </form>
+      <div class="comment-list" id="commentList">
+        <div class="comment-empty">댓글을 불러오는 중...</div>
+      </div>
     </div>
   </div>
 
@@ -765,3 +883,61 @@ Migrate the <span class="str">$0</span> component from <span class="str">$1</spa
   Soomin Kim &#183; &#115;&#109;&#115;&#111;&#111;&#109;&#105;&#110;&#107;&#105;&#109;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;<br>
   <span style="margin-top:4px;display:inline-block;">&copy; 2025 Soomin Kim. All rights reserved.</span>
 </footer>
+
+<script>
+(function(){
+  const SUPABASE_URL = 'https://mvfbxijvczevyxuqnmdo.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12ZmJ4aWp2Y3pldnl4dXFubWRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjE4MjQsImV4cCI6MjA4OTg5NzgyNH0.gsVGBWFGaVbrw_cUtAHxxA_v8vOwxQWAfXa0g_u3Uac';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const list = document.getElementById('commentList');
+  const form = document.getElementById('commentForm');
+  const btn = document.getElementById('commentBtn');
+
+  function timeAgo(dateStr) {
+    var diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
+    if (diff < 60) return '방금 전';
+    if (diff < 3600) return Math.floor(diff / 60) + '분 전';
+    if (diff < 86400) return Math.floor(diff / 3600) + '시간 전';
+    if (diff < 2592000) return Math.floor(diff / 86400) + '일 전';
+    return new Date(dateStr).toLocaleDateString('ko-KR');
+  }
+
+  function renderComments(data) {
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="comment-empty">아직 댓글이 없습니다. 첫 번째 댓글을 남겨보세요!</div>';
+      return;
+    }
+    list.innerHTML = data.map(function(c) {
+      return '<div class="comment-item">' +
+        '<div class="comment-meta">' +
+          '<span class="comment-nick">' + c.nickname.replace(/</g,'&lt;') + '</span>' +
+          '<span class="comment-time">' + timeAgo(c.created_at) + '</span>' +
+        '</div>' +
+        '<div class="comment-text">' + c.content.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  async function loadComments() {
+    var resp = await sb.from('comments').select('*').order('created_at', { ascending: false });
+    renderComments(resp.data);
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var nick = document.getElementById('commentNick').value.trim();
+    var content = document.getElementById('commentContent').value.trim();
+    if (!nick || !content) return;
+    btn.disabled = true;
+    btn.textContent = '등록 중...';
+    await sb.from('comments').insert({ nickname: nick, content: content });
+    document.getElementById('commentContent').value = '';
+    await loadComments();
+    btn.disabled = false;
+    btn.textContent = '등록';
+  });
+
+  loadComments();
+})();
+</script>
