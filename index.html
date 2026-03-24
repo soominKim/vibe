@@ -51,16 +51,19 @@ header .week{font-size:13px;color:var(--text-dim);}
 #t1:checked ~ .tab-nav label[for="t1"],
 #t2:checked ~ .tab-nav label[for="t2"],
 #t3:checked ~ .tab-nav label[for="t3"],
-#t4:checked ~ .tab-nav label[for="t4"]{color:var(--text);font-weight:700;border-bottom-color:var(--text);}
+#t4:checked ~ .tab-nav label[for="t4"],
+#t5:checked ~ .tab-nav label[for="t5"]{color:var(--text);font-weight:700;border-bottom-color:var(--text);}
 #t1:checked ~ .tab-nav label[for="t1"] .num,
 #t2:checked ~ .tab-nav label[for="t2"] .num,
 #t3:checked ~ .tab-nav label[for="t3"] .num,
-#t4:checked ~ .tab-nav label[for="t4"] .num{background:var(--text);color:#fff;}
+#t4:checked ~ .tab-nav label[for="t4"] .num,
+#t5:checked ~ .tab-nav label[for="t5"] .num{background:var(--text);color:#fff;}
 .tab-panel{display:none;padding:40px 24px 80px;}
 #t1:checked ~ .p1,
 #t2:checked ~ .p2,
 #t3:checked ~ .p3,
-#t4:checked ~ .p4{display:block;}
+#t4:checked ~ .p4,
+#t5:checked ~ .p5{display:block;}
 
 /* CONTENT STYLES */
 .proj-header{margin-bottom:40px;}
@@ -93,6 +96,10 @@ header .week{font-size:13px;color:var(--text-dim);}
 .tip.warn{background:#fff7ed;color:#9a3412;}
 .tip.info{background:#f5f3ff;color:#5b21b6;}
 .tip b{display:block;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;text-transform:uppercase;}
+details.expand-section[open] summary span:first-child{transform:rotate(90deg);}
+details.expand-section summary:hover{background:var(--border);}
+details.expand-section summary::-webkit-details-marker{display:none;}
+details.expand-section summary::marker{display:none;content:'';}
 footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text-dim);}
 @media(max-width:640px){
   .hero h1{font-size:26px;}
@@ -135,12 +142,14 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
   <input type="radio" name="tabs" id="t2">
   <input type="radio" name="tabs" id="t3">
   <input type="radio" name="tabs" id="t4">
+  <input type="radio" name="tabs" id="t5">
 
   <div class="tab-nav">
     <label for="t1"><span class="num">1</span>랜딩 페이지 만들기</label>
     <label for="t2"><span class="num">2</span>사용성 높이기</label>
     <label for="t3"><span class="num">3</span>통제권 가져가기</label>
     <label for="t4"><span class="num">4</span>대화형 UX</label>
+    <label for="t5"><span class="num">5</span>코워크 맛보기</label>
   </div>
 
   <!-- ═══════ TAB 1: 랜딩 페이지 만들기 ═══════ -->
@@ -541,6 +550,210 @@ footer{max-width:800px;margin:0 auto;padding:32px 24px 48px;border-top:1px solid
           <li><strong>Deploy</strong> 클릭 → 빌드 완료 후 URL 자동 생성</li>
         </ul>
         <div class="tip"><b>배포 완료</b>Vercel은 GitHub와 자동 연동되어, 이후 Push할 때마다 자동 배포됩니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ TAB 5: 코워크 맛보기 ═══════ -->
+  <div class="tab-panel p5">
+    <div class="proj-header">
+      <h2>코워크 맛보기</h2>
+      <p>사용자가 원하는 결과만 설명하면 클로드가 알아서 복잡한 업무를 수행하는 AI 에이전트. 파일 정리, 문서 작성, 영수증 정리, 데이터 분석 등 귀찮은 업무를 자동화합니다.</p>
+    </div>
+
+    <div class="flow" style="gap:8px;">
+      <span class="flow-node">클로드 코워크</span>
+      <span class="flow-node">파일 관리</span>
+      <span class="flow-node">브라우저 자동화</span>
+      <span class="flow-node">커넥터 연동</span>
+      <span class="flow-node">루틴 자동화</span>
+      <span class="flow-node">스킬 만들기</span>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-label">STEP 1</div>
+      <h3>클로드 코워크란?</h3>
+      <div class="step-body">
+        <p><strong>클로드 코워크</strong>는 사용자가 원하는 결과만 자연어로 설명하면, 클로드가 알아서 복잡한 업무를 수행하는 AI 에이전트입니다.</p>
+        <ul>
+          <li>파일 정리, 문서 작성, 영수증 정리, 데이터 분석 등 귀찮은 업무 자동화</li>
+          <li>브라우저 자동화로 웹 리서치와 문서 생성까지 한 번에</li>
+          <li>커넥터를 통해 Gmail, Slack, Notion 등 외부 서비스와 연동</li>
+        </ul>
+        <div class="tip info"><b>같이 해봐요!</b>아래 Case들을 직접 따라하면서 코워크의 강력한 기능을 체험해 보세요.</div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-label">STEP 2</div>
+      <h3>Case 1: 파일 관리</h3>
+      <div class="step-body">
+        <p>데스크탑 파일 정리, 검색, 분석을 자연어로 요청할 수 있습니다.</p>
+        <div class="prompt-box">이 폴더에 있는 이미지 파일들을 image 폴더로 만들어서 다 넣어줘.</div>
+        <div class="prompt-box">이 폴더 안에 있는 영수증들을 분석하고 엑셀 파일로 만들어줘</div>
+        <div class="tip"><b>Tip</b>파일 관리 작업은 클로드가 로컬 파일 시스템에 직접 접근하여 수행합니다. 폴더 생성, 파일 이동, 데이터 추출 및 변환까지 자동으로 처리됩니다.</div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-label">STEP 3</div>
+      <h3>Case 2: 브라우저 자동화</h3>
+      <div class="step-body">
+        <p>유튜브 댓글 분석, 경쟁사 리서치, 문서 자동 생성 등을 수행합니다.</p>
+        <div class="prompt-box">'OOO'에 대해서 조사해줘. 다음 출처를 참고해서 나에게 pdf, docx, pptx 파일로 보고서를 작성해줘. (병렬로 수행해라)</div>
+        <div class="tip info"><b>병렬 수행</b>여러 형식의 보고서를 동시에 생성하도록 요청하면, 클로드가 병렬로 작업을 처리하여 시간을 절약합니다.</div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-label">STEP 4</div>
+      <h3>Case 3: 커넥터 이용하기</h3>
+      <div class="step-body">
+        <p>외부 서비스와 연동하여 업무를 자동화합니다.</p>
+        <p><strong>커넥터 설정 방법:</strong></p>
+        <div class="code-block"><code><span class="cmd">(+)</span> > 파일이나 커넥터 추가 > 커넥터 > 커넥터 관리 > 커넥터 둘러보기</code></div>
+
+        <p><strong>지메일 커넥터</strong> – 최신 이메일 확인 및 요약</p>
+        <div class="prompt-box">최신 이메일을 확인하고 중요한 내용을 요약해줘.</div>
+
+        <p><strong>슬랙 커넥터</strong> – 대화록 분석 및 공유</p>
+        <div class="prompt-box">슬랙 general 채널에 최근 일주일간의 모든 대화록을 분석하고, pdf로 저장한 뒤 그걸 다시 슬랙으로 보내줘</div>
+        <div class="prompt-box">방금 보낸 요약을 노션에도 송부해줘</div>
+        <div class="tip"><b>Tip</b>커넥터를 연결하면 Gmail, Slack, Notion 등 다양한 서비스 간의 데이터를 자유롭게 주고받을 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-label">STEP 5</div>
+      <h3>Case 4: "예정됨" 기능으로 루틴 업무 자동화</h3>
+      <div class="step-body">
+        <p>기존 작업에서 <code>/schedule</code>을 입력해서 루틴 업무를 자동화할 수 있습니다.</p>
+        <div class="prompt-box">/schedule 매일 아침 9시에 새로운 AI 소식을 뉴스레터로 만들어서 나에게 슬랙으로 보내줘</div>
+        <div class="tip info"><b>활용 예시</b>매일 유튜브에 신규로 올라오는 AI 뉴스를 요약하여 뉴스레터로 받아볼 수 있습니다. 반복적인 정보 수집과 공유를 완전히 자동화하세요.</div>
+      </div>
+    </div>
+
+    <!-- BONUS: 클로드 스킬 -->
+    <div class="step">
+      <div class="step-label" style="background:var(--primary-light);color:var(--primary);padding:2px 10px;border-radius:4px;">BONUS</div>
+      <h3>별책부록: 클로드 스킬</h3>
+      <div class="step-body">
+        <p><strong>특정 작업을 반복적으로 사용할 때</strong> 스킬로 템플릿화하여 활용합니다.</p>
+        <ul>
+          <li>매번 같은 프롬프트를 복사-붙여넣기 하지 말자</li>
+          <li>Skill은 Claude Code의 <strong>업무 레시피</strong>입니다</li>
+          <li>반복 작업을 모듈화해서 클로드에게 부여하는 패키지</li>
+        </ul>
+        <div class="prompt-box">특정 유튜브 url을 넣으면 링크드인과 스레드 글을 한 번에 제작해서 슬랙에 공유하는 스킬 만들어줘. 스킬명: youtube-to-content</div>
+
+        <p style="margin-top:16px;"><strong>Skill 폴더 구조</strong></p>
+        <div class="code-block"><code>my-skill/
+├── SKILL.md          <span class="cmt"># 필수: 스킬의 본체. 메타데이터 + 지시사항</span>
+├── scripts/          <span class="cmt"># 선택: 실행할 코드 (Python, Bash 등)</span>
+├── references/       <span class="cmt"># 선택: 참고 문서, 교안, 데이터</span>
+└── assets/           <span class="cmt"># 선택: 템플릿, 리소스 파일</span></code></div>
+        <div class="tip"><b>Tip</b>SKILL.md만 있으면 스킬이 됩니다. 나머지 폴더는 필요할 때 추가하세요.</div>
+
+        <!-- 펼쳐보기: 클로드 스킬 가이드 -->
+        <details class="expand-section" style="margin-top:24px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:700;cursor:pointer;background:var(--bg-gray);color:var(--text);display:flex;align-items:center;gap:8px;user-select:none;">
+            <span style="font-size:11px;transition:transform 0.2s;display:inline-block;">&#9654;</span> 클로드 스킬 완전 가이드 펼쳐보기
+          </summary>
+          <div style="padding:20px 20px 24px;font-size:14px;color:var(--text-sub);line-height:1.85;">
+
+            <p style="margin-bottom:16px;"><strong style="color:var(--text);">Skills란?</strong><br>
+            Skills는 Claude가 할 수 있는 작업을 확장합니다. <code>SKILL.md</code> 파일을 지침과 함께 생성하면 Claude가 이를 자신의 도구 모음에 추가합니다. 관련이 있을 때 자동으로 사용하거나, <code>/skill-name</code>으로 직접 호출할 수 있습니다.</p>
+
+            <p style="margin-bottom:8px;"><strong style="color:var(--text);">번들 Skills (기본 제공)</strong></p>
+            <div class="code-block" style="margin-bottom:16px;"><code><span class="cmd">/batch</span> &lt;instruction&gt;    <span class="cmt"># 코드베이스 전체에서 대규모 변경을 병렬로 조율</span>
+<span class="cmd">/claude-api</span>             <span class="cmt"># Claude API 참조 자료 로드</span>
+<span class="cmd">/debug</span> [description]    <span class="cmt"># 현재 세션 문제 해결</span>
+<span class="cmd">/loop</span> [interval] &lt;prompt&gt; <span class="cmt"># 프롬프트를 주기적으로 반복 실행</span>
+<span class="cmd">/simplify</span> [focus]       <span class="cmt"># 코드 재사용, 품질, 효율성 검토 후 수정</span></code></div>
+
+            <p style="margin-bottom:8px;"><strong style="color:var(--text);">첫 번째 Skill 만들기 (3단계)</strong></p>
+            <p><strong>1. Skill 디렉토리 생성</strong></p>
+            <div class="code-block"><code><span class="cmd">mkdir</span> -p ~/.claude/skills/explain-code</code></div>
+            <p><strong>2. SKILL.md 작성</strong> – YAML frontmatter(메타데이터) + markdown(지침)</p>
+            <div class="code-block"><code><span class="cmt">---</span>
+<span class="flg">name</span>: explain-code
+<span class="flg">description</span>: Explains code with visual diagrams and analogies.
+<span class="cmt">---</span>
+
+When explaining code, always include:
+1. <span class="str">Start with an analogy</span>
+2. <span class="str">Draw a diagram</span> (ASCII art)
+3. <span class="str">Walk through the code</span> step-by-step
+4. <span class="str">Highlight a gotcha</span></code></div>
+            <p><strong>3. 테스트</strong> – 자연어로 물어보거나 <code>/explain-code src/auth/login.ts</code>로 직접 호출</p>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">Skill을 저장하는 위치 = 사용 범위</strong></p>
+            <div class="code-block"><code><span class="flg">Enterprise</span>  관리 설정         <span class="cmt"># 조직의 모든 사용자</span>
+<span class="flg">Personal</span>    ~/.claude/skills/  <span class="cmt"># 내 모든 프로젝트</span>
+<span class="flg">Project</span>     .claude/skills/    <span class="cmt"># 이 프로젝트만</span>
+<span class="flg">Plugin</span>      &lt;plugin&gt;/skills/   <span class="cmt"># 플러그인이 활성화된 위치</span></code></div>
+            <div class="tip info"><b>우선순위</b>같은 이름의 skill이 여러 위치에 있으면: Enterprise > Personal > Project 순으로 우선합니다.</div>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">Frontmatter 주요 필드</strong></p>
+            <div class="code-block"><code><span class="cmt">---</span>
+<span class="flg">name</span>: my-skill              <span class="cmt"># 표시 이름 (/slash-command가 됨)</span>
+<span class="flg">description</span>: 무엇을, 언제    <span class="cmt"># Claude가 자동 로드 시기 판단에 사용</span>
+<span class="flg">argument-hint</span>: [filename]   <span class="cmt"># 자동완성 시 표시되는 힌트</span>
+<span class="flg">disable-model-invocation</span>: true <span class="cmt"># Claude 자동 실행 방지 (수동 전용)</span>
+<span class="flg">user-invocable</span>: false       <span class="cmt"># / 메뉴에서 숨기기 (배경 지식용)</span>
+<span class="flg">allowed-tools</span>: Read, Grep   <span class="cmt"># 허용할 도구 제한</span>
+<span class="flg">context</span>: fork               <span class="cmt"># 격리된 subagent에서 실행</span>
+<span class="flg">agent</span>: Explore              <span class="cmt"># subagent 유형 지정</span>
+<span class="cmt">---</span></code></div>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">인수 전달하기</strong></p>
+            <p><code>$ARGUMENTS</code>로 전체 인수를, <code>$0</code>, <code>$1</code> 등으로 개별 인수에 접근합니다.</p>
+            <div class="code-block"><code><span class="cmt"># /fix-issue 123 → "Fix GitHub issue 123..."</span>
+Fix GitHub issue <span class="str">$ARGUMENTS</span> following our coding standards.
+
+<span class="cmt"># /migrate-component SearchBar React Vue</span>
+Migrate the <span class="str">$0</span> component from <span class="str">$1</span> to <span class="str">$2</span>.</code></div>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">동적 컨텍스트 주입</strong></p>
+            <p><code>!`command`</code> 구문으로 skill이 로드되기 전에 shell 명령어를 실행하고 결과를 삽입합니다.</p>
+            <div class="code-block"><code><span class="cmt">## Pull request context</span>
+- PR diff: <span class="str">!`gh pr diff`</span>
+- PR comments: <span class="str">!`gh pr view --comments`</span>
+- Changed files: <span class="str">!`gh pr diff --name-only`</span></code></div>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">호출 제어 요약</strong></p>
+            <div class="code-block"><code><span class="flg">(기본값)</span>                      <span class="cmt"># 사용자 O, Claude O</span>
+<span class="flg">disable-model-invocation: true</span>  <span class="cmt"># 사용자 O, Claude X (배포, 커밋 등)</span>
+<span class="flg">user-invocable: false</span>           <span class="cmt"># 사용자 X, Claude O (배경 지식)</span></code></div>
+
+            <p style="margin-top:20px;margin-bottom:8px;"><strong style="color:var(--text);">지원 파일 추가</strong></p>
+            <p>SKILL.md를 500줄 이하로 유지하고, 상세한 참조 자료는 별도 파일로 분리합니다.</p>
+            <div class="code-block"><code>my-skill/
+├── SKILL.md           <span class="cmt"># 주요 지침 (필수)</span>
+├── template.md        <span class="cmt"># Claude가 채울 템플릿</span>
+├── examples/
+│   └── sample.md      <span class="cmt"># 예제 출력</span>
+└── scripts/
+    └── validate.sh    <span class="cmt"># Claude가 실행할 스크립트</span></code></div>
+
+            <p style="margin-top:20px;"><strong style="color:var(--text);">문자열 치환 변수</strong></p>
+            <div class="code-block"><code><span class="str">$ARGUMENTS</span>           <span class="cmt"># 전달된 모든 인수</span>
+<span class="str">$ARGUMENTS[N]</span> / <span class="str">$N</span>   <span class="cmt"># N번째 인수 (0부터 시작)</span>
+<span class="str">${CLAUDE_SESSION_ID}</span>  <span class="cmt"># 현재 세션 ID</span>
+<span class="str">${CLAUDE_SKILL_DIR}</span>   <span class="cmt"># SKILL.md가 있는 디렉토리 경로</span></code></div>
+
+            <div class="tip" style="margin-top:20px;"><b>Tip</b>Skill이 트리거되지 않으면 description의 키워드를 확인하세요. 너무 자주 트리거되면 <code>disable-model-invocation: true</code>를 추가하세요.</div>
+
+            <p style="margin-top:16px;font-size:13px;">
+              <a href="https://code.claude.com/docs/ko/skills" target="_blank" rel="noopener">공식 가이드 원문 보기 →</a>
+            </p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
